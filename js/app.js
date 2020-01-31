@@ -16,6 +16,7 @@ const {items} = data;
 function createChildElem(id, label) {
     const child = document.createElement("li");
     child.id = id;
+    //child.textContent = "id " + id + " value " + label;
     child.textContent = label;
     return child;
 }
