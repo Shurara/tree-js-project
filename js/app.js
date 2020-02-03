@@ -78,13 +78,15 @@ function deleteBranchWithoutChildren() {
     if (refs.selectedId.textContent) {
         const id = refs.selectedId.textContent;
         let element = document.getElementById(id);
-        while (element.firstChild)
-        {
-            element.parentNode.insertBefore(element.firstChild,
-                element);
+        if (!element.children) {
+            element.remove();
+        } else {
+            let cloneElement = element.cloneNode(true);
+            element.parentElement.append(...cloneElement.children);
+            element.remove();
         }
-        element.parentNode.removeChild(element);
-        }
+
+    }
 }
 
 function moveBranch(e) {
