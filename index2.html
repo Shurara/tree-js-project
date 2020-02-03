@@ -1,0 +1,30 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>Create List</title>
+    <style></style>
+    <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+<h2>Nested list</h2>
+<div>Selected id: <span class="selectedId"></span></div>
+<div class="treeData"></div>
+<p>Возможность добавить элемент в любую ветку указав ID родительского элемента.</p>
+
+<form class="addElement">
+    <input class="addElementInput" type="text" placeholder="you text" />
+    <input type="submit" value="Add elem with text to parent selected id" />
+</form>
+<p>Возможность удалить элемент включая дочерние элементы</p>
+<button class="deleteBranch" type="button">Delete branch</button>
+<p>Возможность удалить элемент без удаления дочерних элементов перенеся их в ближайший родительский элемент
+</p>
+<button class="deleteBranchWithoutChildren" type="button">Delete branch without children</button>
+<p>Возможность перенести любой элемент в любую другую ветку указав ID новой ветки.</p>
+<form class="moveBranch">
+    <input class="newParentID" type="number" placeholder="id new parent" />
+    <input type="submit" value="Move selected element to parent id" />
+</form>
+<script src="./js/appOneFile.js" type="text/javascript"></script>
+</body>
+</html>
