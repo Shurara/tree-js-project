@@ -42,9 +42,9 @@ function createChildElemst(arr, parent) {
         if (!("items" in e)) {
             root.appendChild(createChildElem(e.id, e.label));
         } else {
-            const innerUl = document.createElement("ul");
-            root.appendChild(createChildElem(e.id, e.label)).appendChild(innerUl);
-            createChildElemst(e.items, innerUl);
+            let innerRoot = createChildElem(e.id, e.label);
+            root.appendChild(innerRoot);
+            createChildElemst(e.items, innerRoot);
         }
     });
     parent.appendChild(root);
@@ -78,11 +78,12 @@ function deleteBranchWithoutChildren() {
     if (refs.selectedId.textContent) {
         const id = refs.selectedId.textContent;
         let element = document.getElementById(id);
-        let fragment = document.createDocumentFragment();
-        while(element.firstChild) {
-            fragment.appendChild(element.firstChild);
+        while (element.firstChild)
+        {
+            element.parentNode.insertBefore(element.firstChild,
+                element);
         }
-        element.parentNode.replaceChild(fragment, element);
+        element.parentNode.removeChild(element);
         }
 }
 
