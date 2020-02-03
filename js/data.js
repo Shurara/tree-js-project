@@ -11,8 +11,8 @@ let data = {
           id: 5,
           label: "Sub Second item 3",
           items: [
-            { id: 6, label: "Third item" },
-            { id: 7, label: "Fourth item" }
+            { id: 6, label: "Sub sub Second item 1" },
+            { id: 7, label: "Sub sub Second item 2" }
           ]
         }
       ]

@@ -7,6 +7,7 @@ const refs = {
     addElement: document.querySelector(".addElement"),
     addElementInput: document.querySelector(".addElementInput"),
     deleteBranch: document.querySelector(".deleteBranch"),
+    deleteBranchWithoutChildren: document.querySelector(".deleteBranchWithoutChildren"),
     moveBranch: document.querySelector(".moveBranch"),
     newParentID: document.querySelector(".newParentID")
 };
@@ -16,11 +17,11 @@ const {items} = data;
 function createChildElem(id, label) {
     const child = document.createElement("li");
     child.id = id;
-    //child.textContent = "id " + id + " value " + label;
     child.textContent = label;
     return child;
 }
 
+/*
 function createChildElemst(arr, parent) {
     const root = document.createElement("ul");
     arr.forEach(e => {
@@ -29,6 +30,21 @@ function createChildElemst(arr, parent) {
         } else {
             root.appendChild(createChildElem(e.id, e.label));
             createChildElemst(e.items, root);
+        }
+    });
+    parent.appendChild(root);
+}
+*/
+
+function createChildElemst(arr, parent) {
+    const root = document.createElement("ul");
+    arr.forEach(e => {
+        if (!("items" in e)) {
+            root.appendChild(createChildElem(e.id, e.label));
+        } else {
+            const innerUl = document.createElement("ul");
+            root.appendChild(createChildElem(e.id, e.label)).appendChild(innerUl);
+            createChildElemst(e.items, innerUl);
         }
     });
     parent.appendChild(root);
@@ -58,6 +74,18 @@ function deleteBranch() {
     }
 }
 
+function deleteBranchWithoutChildren() {
+    if (refs.selectedId.textContent) {
+        const id = refs.selectedId.textContent;
+        let element = document.getElementById(id);
+        let fragment = document.createDocumentFragment();
+        while(element.firstChild) {
+            fragment.appendChild(element.firstChild);
+        }
+        element.parentNode.replaceChild(fragment, element);
+        }
+}
+
 function moveBranch(e) {
     e.preventDefault();
     if (refs.selectedId.textContent) {
@@ -76,5 +104,6 @@ createChildElemst(items, refs.treeData);
 
 refs.treeData.addEventListener("click", showSelectedId);
 refs.deleteBranch.addEventListener("click", deleteBranch);
+refs.deleteBranchWithoutChildren.addEventListener("click", deleteBranchWithoutChildren);
 refs.addElement.addEventListener("submit", addUserElement);
 refs.moveBranch.addEventListener("submit", moveBranch);
